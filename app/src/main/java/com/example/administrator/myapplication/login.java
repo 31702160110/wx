@@ -62,14 +62,14 @@ public class login extends AppCompatActivity {
 
     //登录
     public void login() {
-        final String uName = user.getText().toString().trim();
+        final String uUser = user.getText().toString().trim();
         final String uPwd = pwd.getText().toString().trim();
-        if (uName.equals("")) {
-            Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show();
+        if (uUser.equals("")) {
+            Toast.makeText(this, "请输入账号", Toast.LENGTH_SHORT).show();
         } else if (uPwd.equals("")) {
             Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
         } else {
-            loginpost(uName, uPwd, new Callback() {
+            loginpost(uUser, uPwd, new Callback() {
                 @Override
                 //请求失败
                 public void onFailure(Call call, IOException e) {
@@ -104,7 +104,6 @@ public class login extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     //User实体类

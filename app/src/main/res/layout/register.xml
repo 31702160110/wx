@@ -2,9 +2,103 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".register">
+
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/line1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line1"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="用户名:"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line2"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="账号:"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/user"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/line4"
+            android:layout_below="@id/line3"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="密码:"
+                android:textSize="20dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="50dp"/>
+            <EditText
+                android:id="@+id/pwd"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_below="@id/line1"
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/adduser"
+                android:text="注册"
+                android:onClick="click"
+                android:layout_margin="50dp"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
