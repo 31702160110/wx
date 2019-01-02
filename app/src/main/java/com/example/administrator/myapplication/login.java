@@ -1,19 +1,14 @@
 package com.example.administrator.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -91,6 +86,10 @@ public class login extends AppCompatActivity {
                             Gson gson = new Gson();
                             User user = gson.fromJson(json, User.class);
                             if (user.status.equals("登陆成功")) {
+                                SharedPreferences sp = getSharedPreferences("data",MODE_PRIVATE);
+                                SharedPreferences.Editor edit = sp.edit();
+                                edit.putString("user",user.user);
+                                edit.commit();
                                 Toast.makeText(login.this, "登陆成功", Toast.LENGTH_SHORT).show();
                                 Intent intent1 = new Intent();
                                 intent1.setAction("chat");
