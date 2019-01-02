@@ -13,7 +13,7 @@ public class db extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-      db.execSQL("CREATE TABLE information(_id INTEGER PRIMARY KEY AUTOINCREMENT,`name` varchar(10), `time` int(30),`chat` varchar(255),)");
+      db.execSQL("CREATE TABLE information(_id INTEGER PRIMARY KEY AUTOINCREMENT,`name` varchar(10), `time` int(30),`chat` varchar(255))");
     }
 
     @Override

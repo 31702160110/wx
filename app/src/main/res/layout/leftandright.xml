@@ -6,14 +6,14 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:id="@+id/left_layout"
+        android:id="@+id/left_Layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:background="@drawable/left">
 
         <TextView
-            android:id="@+id/left_msg"
+            android:id="@+id/left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -32,7 +32,7 @@
         >
 
         <TextView
-            android:id="@+id/right_msg"
+            android:id="@+id/right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
