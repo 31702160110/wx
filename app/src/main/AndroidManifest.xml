@@ -15,7 +15,6 @@
         android:supportsRtl="true">
         <activity
             android:name=".login"
-            android:label="登录"
             android:launchMode="singleTop"
             android:theme="@style/NoAppTheme">
             <intent-filter>
@@ -35,15 +34,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".chat"
-            android:label="soul's"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="chat" />
+        <activity android:name=".MainActivity"
+            android:theme="@style/NoAppTheme">
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
     </application>
 

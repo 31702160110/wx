@@ -22,20 +22,22 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class login extends AppCompatActivity {
-    private EditText user;
-    private EditText pwd;
-
+    private EditText ed_user;
+    private EditText ed_pwd;
+    private String uUser;
+    private String uPwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         init();
+        getInfo();//获取账号信息 填到对应的EditText
     }
 
     //初始化控件
     public void init() {
-        user = findViewById(R.id.user);
-        pwd = findViewById(R.id.pwd);
+        ed_user = findViewById(R.id.user);
+        ed_pwd = findViewById(R.id.pwd);
     }
 
     //点击事件
@@ -57,8 +59,8 @@ public class login extends AppCompatActivity {
 
     //登录
     public void login() {
-        final String uUser = user.getText().toString().trim();
-        final String uPwd = pwd.getText().toString().trim();
+        uUser = ed_user.getText().toString().trim();
+        uPwd = ed_pwd.getText().toString().trim();
         if (uUser.equals("")) {
             Toast.makeText(this, "请输入账号", Toast.LENGTH_SHORT).show();
         } else if (uPwd.equals("")) {
@@ -83,17 +85,16 @@ public class login extends AppCompatActivity {
                     runOnUiThread(new Thread() {
                         @Override
                         public void run() {
+//                            Log.d("test", "run: json:"+json);
                             Gson gson = new Gson();
                             User user = gson.fromJson(json, User.class);
                             if (user.status.equals("登陆成功")) {
-                                SharedPreferences sp = getSharedPreferences("data",MODE_PRIVATE);
-                                SharedPreferences.Editor edit = sp.edit();
-                                edit.putString("user",user.user);
-                                edit.commit();
+                                saveInfo();//保存账号信息
                                 Toast.makeText(login.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                                Intent intent1 = new Intent();
-                                intent1.setAction("chat");
-                                startActivity(intent1);
+                                Intent intent = new Intent(login.this,MainActivity.class);
+                                intent.putExtra("name",user.name);
+                                intent.putExtra("user",user.user);
+                                startActivity(intent);
                             }
                             if (user.status.equals("登陆失败")) {
                                 Toast.makeText(login.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
@@ -104,7 +105,22 @@ public class login extends AppCompatActivity {
             });
         }
     }
-
+    //保存账号
+    private void saveInfo(){
+        SharedPreferences sp = getSharedPreferences("data",MODE_PRIVATE);
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString("username",uUser);
+        edit.putString("password",uPwd);
+        edit.commit();
+    }
+    //获取账号
+    private void getInfo(){
+        SharedPreferences sp = getSharedPreferences("data",MODE_PRIVATE);
+        String data1 = sp.getString("username","");
+        String data2 = sp.getString("password","");
+        ed_user.setText(data1);
+        ed_pwd.setText(data2);
+    }
     //User实体类
     public class User {
         private String status;
