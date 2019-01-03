@@ -1,23 +1,22 @@
 package com.example.administrator.myapplication;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.administrator.myapplication.utils.entity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static com.example.administrator.myapplication.utils.znHttp.zRegister;
 
 public class register extends AppCompatActivity {
     private EditText user;
@@ -54,7 +53,7 @@ public class register extends AppCompatActivity {
         }
     }
 
-    //登录
+    //注册
     public void register() {
         final String uUser = user.getText().toString().trim();
         final String uPwd = pwd.getText().toString().trim();
@@ -66,7 +65,7 @@ public class register extends AppCompatActivity {
         } else if (uPwd.equals("")) {
             Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
         } else {
-            report(uName, uPwd, uUser, new Callback() {
+            zRegister(uName, uPwd, uUser, new Callback() {
                 @Override
                 //请求失败
                 public void onFailure(Call call, IOException e) {
@@ -86,7 +85,7 @@ public class register extends AppCompatActivity {
                         @Override
                         public void run() {
                             Gson gson = new Gson();
-                            status status = gson.fromJson(json, status.class);
+                            entity status = gson.fromJson(json, entity.class);
                             if (status.status.equals("注册成功")) {
                                 Toast.makeText(register.this, "注册成功", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(register.this,login.class);
@@ -100,34 +99,6 @@ public class register extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    //status实体类
-    public class status {
-        private String status;
-
-        status(String status) {
-            this.status = status;
-        }
-    }
-
-    //post请求
-    public static void report(String uName, String uPwd,String uUser, Callback callback) {
-        OkHttpClient client = new OkHttpClient();
-        //POST 表单创建
-        RequestBody body = new FormBody.Builder()
-                .add("name", uName)
-                .add("password", uPwd)
-                .add("user", uUser)
-                .build();
-        //访问请求
-        final Request request = new Request.Builder()
-                .url("http://123.207.85.214/chat/register.php")
-                //提交表单
-                .post(body)
-                .build();
-        //网络异步回调
-        client.newCall(request).enqueue(callback);
     }
 
 }
