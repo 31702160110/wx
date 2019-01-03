@@ -24,7 +24,7 @@ public abstract class znHttp {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void zRegister(String uName, String uPwd,String uUser, Callback callback) {
+    public static void zRegister(String uName, String uPwd, String uUser, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         //POST 表单创建
         RequestBody body = new FormBody.Builder()
@@ -48,7 +48,6 @@ public abstract class znHttp {
         RequestBody body = new FormBody.Builder()
                 .add("user", user)
                 .add("chat", chat)
-
                 .build();
         //访问请求
         final Request request = new Request.Builder()
@@ -60,5 +59,14 @@ public abstract class znHttp {
         client.newCall(request).enqueue(callback);
     }
 
+    public static void zUserlist(Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        final Request request = new Request.Builder()
+                .url("http://123.207.85.214/chat/member.php")
+                //提交表单
+                .build();
+        //网络异步回调
+        client.newCall(request).enqueue(callback);
+    }
 
 }

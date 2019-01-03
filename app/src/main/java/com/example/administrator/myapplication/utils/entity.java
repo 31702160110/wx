@@ -57,7 +57,7 @@ public class entity {
         this.time = time;
     }
 
-    entity(String status, String user, String chat, String name, String time) {
+    public entity(String status, String user, String chat, String name, String time) {
         this.status = status;
         this.user = user;
         this.status = chat;
