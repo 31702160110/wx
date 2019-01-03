@@ -121,8 +121,8 @@ public class login extends AppCompatActivity {
     //获取账号
     public void getInfo() {
         SharedPreferences qz = getSharedPreferences("data", MODE_PRIVATE);
-        String uname = qz.getString("username", null);
-        String upwd = md5.JM(qz.getString("password", null));
+        String uname = qz.getString("username", "");
+        String upwd = md5.JM(qz.getString("password", ""));
         ed_user.setText(uname);
         ed_pwd.setText(upwd);
     }
