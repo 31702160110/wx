@@ -10,15 +10,13 @@
         android:id="@+id/line1"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="40dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="100dp">
 
         <ImageView
-            android:src="@drawable/wechat_128px"
+            android:src="@drawable/loginicon"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

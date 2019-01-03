@@ -8,30 +8,32 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.administrator.myapplication.utils.Md5;
+import com.example.administrator.myapplication.utils.entity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.security.MessageDigest;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static com.example.administrator.myapplication.utils.znHttp.zLogin;
 
 public class login extends AppCompatActivity {
     private EditText ed_user;
     private EditText ed_pwd;
     private String uUser;
     private String uPwd;
+    private String jiauser;
+    Md5 md5 = new Md5();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         init();
         getInfo();//获取账号信息 填到对应的EditText
+
     }
 
     //初始化控件
@@ -66,7 +68,7 @@ public class login extends AppCompatActivity {
         } else if (uPwd.equals("")) {
             Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
         } else {
-            loginpost(uUser, uPwd, new Callback() {
+            zLogin(uUser, uPwd, new Callback() {
                 @Override
                 //请求失败
                 public void onFailure(Call call, IOException e) {
@@ -87,8 +89,9 @@ public class login extends AppCompatActivity {
                         public void run() {
 //                            Log.d("test", "run: json:"+json);
                             Gson gson = new Gson();
-                            User user = gson.fromJson(json, User.class);
+                            entity user = gson.fromJson(json, entity.class);
                             if (user.status.equals("登陆成功")) {
+                                jiauser = user.user;
                                 saveInfo();//保存账号信息
                                 Toast.makeText(login.this, "登陆成功", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(login.this,MainActivity.class);
@@ -107,78 +110,22 @@ public class login extends AppCompatActivity {
     }
     //保存账号
     private void saveInfo(){
-        SharedPreferences sp = getSharedPreferences("data",MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("data", MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
-        edit.putString("username",uUser);
-        edit.putString("password",uPwd);
+        edit.putString("username", uUser);
+        edit.putString("password", md5.KL(uPwd));
+        edit.putString("user", jiauser);
         edit.commit();
     }
+
     //获取账号
-    private void getInfo(){
-        SharedPreferences sp = getSharedPreferences("data",MODE_PRIVATE);
-        String data1 = sp.getString("username","");
-        String data2 = sp.getString("password","");
-        ed_user.setText(data1);
-        ed_pwd.setText(data2);
+    public void getInfo() {
+        SharedPreferences qz = getSharedPreferences("data", MODE_PRIVATE);
+        String uname = qz.getString("username", null);
+        String upwd = md5.JM(qz.getString("password", null));
+        ed_user.setText(uname);
+        ed_pwd.setText(upwd);
     }
-    //User实体类
-    public class User {
-        private String status;
-        private String user;
-        private String name;
-
-        User(String status, String user, String name) {
-            this.status = status;
-            this.user = user;
-            this.name = name;
-        }
-    }
-
-    //post请求
-    public static void loginpost(String uName, String uPwd, Callback callback) {
-        OkHttpClient client = new OkHttpClient();
-        //POST 表单创建
-        RequestBody body = new FormBody.Builder()
-                .add("user", uName)
-                .add("password", uPwd)
-                .build();
-        //访问请求
-        final Request request = new Request.Builder()
-                .url("http://123.207.85.214/chat/login.php")
-                //提交表单
-                .post(body)
-                .build();
-        //网络异步回调
-        client.newCall(request).enqueue(callback);
-    }
-
-    // 进行md5的加密运算
-    public static String md5(String password) {
-        // MessageDigest专门用于加密的类
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            byte[] result = messageDigest.digest(password.getBytes()); // 得到加密后的字符组数
-
-            StringBuffer sb = new StringBuffer();
-
-            for (byte b : result) {
-                int num = b & 0xff; // 这里的是为了将原本是byte型的数向上提升为int型，从而使得原本的负数转为了正数
-                String hex = Integer.toHexString(num); //这里将int型的数直接转换成16进制表示
-                //16进制可能是为1的长度，这种情况下，需要在前面补0，
-                if (hex.length() == 1) {
-                    sb.append(0);
-                }
-                sb.append(hex);
-            }
-
-            return sb.toString();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 
 }
 
