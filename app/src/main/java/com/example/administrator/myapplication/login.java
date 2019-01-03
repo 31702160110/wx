@@ -87,7 +87,7 @@ public class login extends AppCompatActivity {
                     runOnUiThread(new Thread() {
                         @Override
                         public void run() {
-//                            Log.d("test", "run: json:"+json);
+                            //                            Log.d("test", "run: json:"+json);
                             Gson gson = new Gson();
                             entity user = gson.fromJson(json, entity.class);
                             if (user.status.equals("登陆成功")) {
@@ -128,5 +128,3 @@ public class login extends AppCompatActivity {
     }
 
 }
-
-
