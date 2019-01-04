@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,9 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,15 +30,15 @@ import static com.example.administrator.myapplication.utils.znHttp.zChat;
 public class chat extends AppCompatActivity {
     private EditText edit;
     private ListView mlist;
-    private  String chatsss[];
-    private  String namesss[];
-    private  String timesss[];
-    private TextView tl,tr;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item);
-        edit= (EditText) findViewById(R.id.text);
+        edit= findViewById(R.id.text);
+
 
     }
 
@@ -74,25 +74,18 @@ public class chat extends AppCompatActivity {
                         @Override
                         public void run() {
                             List<entity> chatss = chatformjson.chatsFromjson(json);
-                            List<Map<String, String>> lis = new ArrayList<Map<String, String>>();
+                            List<jx> lis = new ArrayList<jx>();
+                                Log.i("asddd", String.valueOf(chatss.size()));
                             for (entity info : chatss) {
-                                Map<String, String> map = new HashMap<String, String>();
-                                map.put("name", info.getName());
-                                map.put("chat", info.getChat());
-                                map.put("time", info.getTime());
-                                lis.add(map);
-                            }
-                            for (int i=0;i<lis.size();i++){
-                                Log.i("listchat", lis.get(i).get("chat"));
-//                                namesss[i]=lis.get(i).get("name");
-//                                chatsss[i]=lis.get(i).get("chat");
-//                                timesss[i]=lis.get(i).get("time");
+                                lis.add(new jx(info.chat));
                             }
 
-//                                mlist=(ListView)findViewById(R.id.list);
-//                                ///建适配器
-//                                MyBaseAdapter mAdapter=new  MyBaseAdapter();
-//                                mlist.setAdapter(mAdapter);
+
+                                mlist=findViewById(R.id.list);
+                                ///建适配器
+                                MyBaseAdapter my=new MyBaseAdapter(lis);
+
+                                mlist.setAdapter(my);
                         }
                     });
 
@@ -113,43 +106,52 @@ public class chat extends AppCompatActivity {
         }
     }
 
-//    class  MyBaseAdapter extends  BaseAdapter{
-//     @Override
-//     public int getCount() {
-//         return  namesss.length;
-//     }
-//
-//     @Override
-//     public Object getItem(int i) {
-//         return namesss[i];
-//     }
-//
-//     @Override
-//     public long getItemId(int i) {
-//         return i;
-//     }
-//
-//     @SuppressLint("WrongViewCast")
-//     @Override
-//     public View getView(int i, View view, ViewGroup viewGroup) {
-//
-//         final LinearLayout leftlinear=(LinearLayout)findViewById(R.id.left_Layout);
-//         final LinearLayout rightlinear=(LinearLayout)findViewById(R.id.right_Layout);
-//         tl=findViewById(R.id.left);tr=findViewById(R.id.right);
-//         View view2=View.inflate(chat.this,R.layout.leftandright,null);
-//         if(namesss[i]=="a"){
-//
-//                 leftlinear.setVisibility(View.VISIBLE);
-//                rightlinear.setVisibility(View.GONE);
-//                tl.setText(namesss[i]);
-//                }else{
-//                //如果是发出去的消息，显示右边布局的消息布局，将左边的消息布局隐藏
-//                rightlinear.setVisibility(View.VISIBLE);
-//                leftlinear.setVisibility(View.GONE);
-//                tr.setText(namesss[i]);
-//                }
-//         return null;
-//     }
-// }
+    class  MyBaseAdapter extends BaseAdapter {
+        private List<jx> mList;//数据源
+
+        public MyBaseAdapter(List<jx> lis) {
+            mList = lis;
+            Log.i("wxss", String.valueOf(lis.size()));
+        }
+
+        @Override
+     public int getCount() {
+
+         return  mList.size();
+     }
+
+     @Override
+     public Object getItem(int i) {
+         return mList.get(i);
+     }
+
+     @Override
+     public long getItemId(int i) {
+         return i;
+     }
+
+
+     @Override
+     public View getView(int i, View view, ViewGroup viewGroup) {
+
+
+
+         View view2=View.inflate(chat.this,R.layout.leftandright,null);
+
+         TextView tl=view2.findViewById(R.id.left);
+        jx j=mList.get(i);
+
+         tl.setText(j.chat);
+
+
+         return view2;
+     }
+ }
+ class jx{
+        public  String chat;
+        public jx(String chat){
+            this.chat=chat;
+     }
+ }
 
 }
