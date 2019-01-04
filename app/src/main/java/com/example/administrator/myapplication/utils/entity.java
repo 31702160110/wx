@@ -64,5 +64,11 @@ public class entity {
         this.user = name;
         this.status = time;
     }
+
+    public entity(String chat, String name, String time) {
+        this.status = chat;
+        this.user = name;
+        this.status = time;
+    }
 }
 
