@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.administrator.myapplication.utils.entity;
 import com.example.administrator.myapplication.utils.znAdapter;
@@ -33,17 +35,18 @@ import static com.example.administrator.myapplication.utils.znHttp.zUserlist;
 
 public class ContactFragment extends Fragment {
     private ListView mListView;
+    private TextView username,user;
     private FragmentManager mFragmentManager;
     private znAdapter<entity> mZnAdapter = null;
     private Map<String, String> map;
-    private List<Map<String, String>> list;
+    private List<userjx> list;
     private Handler mHandler;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.contact_fragment, container, false);
-        mListView = view.findViewById(R.id.tv);
+        View view = inflater.inflate(R.layout.userlist, container, false);
+        mListView = view.findViewById(R.id.userlist);
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -53,18 +56,20 @@ public class ContactFragment extends Fragment {
                     Type listType = new TypeToken<List<entity>>() {
                     }.getType();
                     List<entity> entities = gson.fromJson(s, listType);
-                    list = new ArrayList<Map<String, String>>();
+                    list = new ArrayList<userjx>();
                     for (entity info : entities) {
-                        map = new HashMap<String, String>();
-                        map.put("name", info.getName());
-                        map.put("user", info.getUser());
-                        list.add(map);
+                        list.add(new userjx(info.name,info.user));
+
                     }
-                    Log.i("jso1",list.get(1).get("name"));
+                mListView.setAdapter(new userAdapter());
                 }
             }
         };
         hander();
+        username = view.findViewById(R.id.username);
+        user = view.findViewById(R.id.user);
+
+
         return view;
     }
 
@@ -92,6 +97,46 @@ public class ContactFragment extends Fragment {
                 });
             }
         }.start();
+    }
+    class userAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return list.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            if (view == null) {
+                view = getLayoutInflater().inflate(R.layout.usertext, viewGroup, false);
+            }
+            TextView name = view.findViewById(R.id.username);
+            TextView user = view.findViewById(R.id.user);
+            userjx j = list.get(i);
+            name.setText("name:"+j.name);
+            user.setText("user:"+j.user);
+            return view;
+        }
+    }
+    class userjx {
+        public String name;
+        public String user;
+        public userjx(String name,String user) {
+            this.name = name;
+            this.user=user;
+        }
     }
 }
 

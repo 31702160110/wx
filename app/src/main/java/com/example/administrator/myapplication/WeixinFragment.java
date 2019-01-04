@@ -7,8 +7,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.Call;
@@ -49,10 +49,16 @@ public class WeixinFragment extends Fragment implements View.OnClickListener {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {
-                    List<jx> kk = (List<jx>) msg.obj;
+                    final List<jx> kk = (List<jx>) msg.obj;
                     ///建适配器
                     MyBaseAdapter my = new MyBaseAdapter(kk);
                     mlistv.setAdapter(my);
+                    mlistv.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mlistv.smoothScrollToPosition(kk.size());
+                        }
+                    });
                 }
             }
         };
@@ -79,7 +85,7 @@ public class WeixinFragment extends Fragment implements View.OnClickListener {
                 SharedPreferences SP = getActivity().getSharedPreferences("data", MODE_PRIVATE);
                 final String user = SP.getString("user", null);
                 final String ed = et.getText().toString().trim();
-                Log.v("eeeee", user);
+
                 if (ed.equals(""))
 
                 {
@@ -107,6 +113,7 @@ public class WeixinFragment extends Fragment implements View.OnClickListener {
                             for (entity info : chatss) {
                                 lis.add(new jx(info.chat));
                             }
+                            Collections.reverse(lis);
                             Message msg = new Message();
                             msg.what = 1;
                             msg.obj = lis;
@@ -126,12 +133,11 @@ public class WeixinFragment extends Fragment implements View.OnClickListener {
 
         public MyBaseAdapter(List<jx> lis) {
             mList = lis;
-            Log.i("wxss", String.valueOf(lis.size()));
+
         }
 
         @Override
         public int getCount() {
-
             return mList.size();
         }
 
