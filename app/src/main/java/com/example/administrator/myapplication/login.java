@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class login extends AppCompatActivity {
     private String uPwd;
     private String jiauser;
     Md5 md5 = new Md5();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,9 +96,9 @@ public class login extends AppCompatActivity {
                                 jiauser = user.user;
                                 saveInfo();//保存账号信息
                                 Toast.makeText(login.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(login.this,MainActivity.class);
-                                intent.putExtra("name",user.name);
-                                intent.putExtra("user",user.user);
+                                Intent intent = new Intent(login.this, MainActivity.class);
+                                intent.putExtra("name", user.name);
+                                intent.putExtra("user", user.user);
                                 startActivity(intent);
                             }
                             if (user.status.equals("登陆失败")) {
@@ -108,8 +110,9 @@ public class login extends AppCompatActivity {
             });
         }
     }
+
     //保存账号
-    private void saveInfo(){
+    private void saveInfo() {
         SharedPreferences sp = getSharedPreferences("data", MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
         edit.putString("username", uUser);
@@ -127,4 +130,25 @@ public class login extends AppCompatActivity {
         ed_pwd.setText(upwd);
     }
 
+    private long exitTime = 0;
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(getApplicationContext(),
+                    "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
+        }
+
+    }
 }
