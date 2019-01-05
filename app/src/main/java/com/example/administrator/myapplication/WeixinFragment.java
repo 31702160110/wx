@@ -43,7 +43,7 @@ public class WeixinFragment extends Fragment implements View.OnClickListener {
     private ListView mlistv;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.item, container, false);
+        view = inflater.inflate(R.layout.weixin_fragment, container, false);
         mlistv = view.findViewById(R.id.list);
         handler = new Handler() {
             @Override
@@ -56,7 +56,8 @@ public class WeixinFragment extends Fragment implements View.OnClickListener {
                     mlistv.post(new Runnable() {
                         @Override
                         public void run() {
-                            mlistv.smoothScrollToPosition(kk.size());
+//                            mlistv.smoothScrollToPosition(kk.size());
+                            mlistv.setSelection(kk.size());
                         }
                     });
                 }

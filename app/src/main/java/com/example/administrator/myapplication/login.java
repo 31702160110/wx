@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,21 +23,29 @@ import okhttp3.Response;
 
 import static com.example.administrator.myapplication.utils.znHttp.zLogin;
 
-public class login extends AppCompatActivity {
+public class login extends AppCompatActivity implements View.OnClickListener{
     private EditText ed_user;
     private EditText ed_pwd;
     private String uUser;
     private String uPwd;
     private String jiauser;
+    private Boolean islogin;
+    private String jiausername;
     Md5 md5 = new Md5();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        findViewById(R.id.login).setOnClickListener(this);
+        findViewById(R.id.register).setOnClickListener(this);
         init();
         getInfo();//获取账号信息 填到对应的EditText
-
+//        Log.v("kkkk", String.valueOf(islogin));
+        if (islogin == true){
+            Intent intent = new Intent(login.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     //初始化控件
@@ -45,7 +55,8 @@ public class login extends AppCompatActivity {
     }
 
     //点击事件
-    public void click(View v) {
+    @Override
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:
                 login();
@@ -94,6 +105,7 @@ public class login extends AppCompatActivity {
                             entity user = gson.fromJson(json, entity.class);
                             if (user.status.equals("登陆成功")) {
                                 jiauser = user.user;
+                                jiausername = user.name;
                                 saveInfo();//保存账号信息
                                 Toast.makeText(login.this, "登陆成功", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(login.this, MainActivity.class);
@@ -118,6 +130,8 @@ public class login extends AppCompatActivity {
         edit.putString("username", uUser);
         edit.putString("password", md5.KL(uPwd));
         edit.putString("user", jiauser);
+        edit.putString("name", jiausername);
+        edit.putBoolean("islogin", true);
         edit.commit();
     }
 
@@ -126,6 +140,7 @@ public class login extends AppCompatActivity {
         SharedPreferences qz = getSharedPreferences("data", MODE_PRIVATE);
         String uname = qz.getString("username", "");
         String upwd = md5.JM(qz.getString("password", ""));
+        islogin = qz.getBoolean("islogin", Boolean.parseBoolean(""));
         ed_user.setText(uname);
         ed_pwd.setText(upwd);
     }

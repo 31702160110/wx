@@ -1,40 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#d2d2d2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_marginTop="10dp"
+    <ImageView
+        android:background="@drawable/loupcat"
+        android:alpha="0.68"
         android:layout_width="match_parent"
-        android:background="#ffffff"
-        android:layout_height="100dp">
+        android:layout_height="match_parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff">
+
         <ImageView
             android:id="@+id/imgUser"
             android:layout_width="62dp"
-            android:layout_height="62dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="12dp"
-            android:src="@drawable/user_default2" />
+            android:src="@drawable/user_default2"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="12dp" />
 
         <TextView
+            android:textColor="#000000"
+            android:textStyle="bold"
             android:id="@+id/WeChat_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imgUser"
             android:layout_toEndOf="@+id/imgUser"
             android:text="用户名"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/imgUser" />
 
         <TextView
+            android:textColor="#000000"
+            android:textStyle="bold"
             android:id="@+id/we"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imgUser"
             android:layout_toEndOf="@+id/imgUser"
             android:text="User:"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_toRightOf="@+id/imgUser" />
 
         <TextView
             android:id="@+id/WeChat_User"
@@ -43,6 +56,24 @@
             android:layout_alignBottom="@+id/imgUser"
             android:layout_toEndOf="@+id/we"
             android:text=""
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_toRightOf="@+id/we" />
     </RelativeLayout>
-</LinearLayout>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:textStyle="bold"
+            android:alpha="1"
+            android:layout_width="150dp"
+            android:id="@+id/loginout"
+            android:text="退出登录"
+            android:textSize="18dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/btnred"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

@@ -8,8 +8,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:src="@drawable/icon"
-         />
+        android:src="@drawable/icon"/>
 <LinearLayout
     android:layout_margin="8dp"
     android:layout_width="match_parent"
@@ -17,6 +16,8 @@
     android:orientation="vertical"
     >
     <TextView
+        android:textColor="#000000"
+        android:textStyle="bold"
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -24,11 +25,12 @@
         android:textSize="20dp"
          />
     <TextView
+        android:textColor="#000000"
+        android:textStyle="bold"
         android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_gravity="left"
         android:layout_height="20dp"
-
         android:textSize="15dp" />
 </LinearLayout>
 </LinearLayout>

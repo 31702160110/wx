@@ -3,100 +3,115 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/lcat"
     android:layout_height="match_parent"
     tools:context=".login">
-
-    <LinearLayout
+    <ImageView
+        android:background="@drawable/rcat"
+        android:alpha="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <RelativeLayout
         android:id="@+id/line1"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="55dp"
         android:layout_marginBottom="40dp"
         android:layout_width="match_parent"
         android:layout_height="100dp">
 
         <ImageView
             android:src="@drawable/wechat_128px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="95dp"
+            android:layout_height="match_parent" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
+        android:alpha="0.65"
+        android:background="@drawable/btnw"
+        android:layout_marginHorizontal="40dp"
         android:id="@+id/line2"
+        android:layout_marginTop="50dp"
         android:layout_below="@id/line1"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:text="账号:"
             android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#b3226f"
             android:padding="10dp"
-            android:layout_weight="0.8"
+            android:layout_weight="1.4"
             android:layout_width="0dp"
             android:layout_height="50dp"/>
         <EditText
             android:id="@+id/user"
             android:layout_weight="3"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginRight="15dp"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:alpha="0.65"
+        android:background="@drawable/btnw"
+        android:layout_marginHorizontal="40dp"
         android:id="@+id/line3"
-        android:layout_margin="10dp"
         android:layout_below="@id/line2"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:text="密码:"
             android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#b3226f"
             android:padding="10dp"
-            android:layout_weight="0.8"
+            android:layout_weight="1.4"
             android:layout_width="0dp"
             android:layout_height="50dp"/>
         <EditText
             android:id="@+id/pwd"
             android:password="true"
             android:layout_weight="3"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="51dp"
             android:layout_marginRight="15dp"/>
 
     </LinearLayout>
 
-   <RelativeLayout
-       android:layout_centerInParent="true"
-       android:layout_below="@id/line3"
-       android:layout_marginTop="70dp"
-       android:layout_width="wrap_content"
+   <LinearLayout
+       android:orientation="horizontal"
+       android:gravity="center_horizontal"
+       android:layout_alignParentBottom="true"
+       android:layout_marginBottom="29dp"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content">
 
        <Button
            android:id="@+id/login"
            android:text="登录"
-           android:onClick="click"
            android:textSize="18dp"
            android:textColor="#ffffff"
-           android:background="@color/colorPrimary"
+           android:background="@drawable/btng"
            android:layout_width="100dp"
            android:layout_height="50dp" />
 
        <Button
            android:id="@+id/register"
            android:layout_toRightOf="@id/login"
-           android:layout_marginLeft="30dp"
+           android:layout_marginLeft="90dp"
            android:textSize="18dp"
-           android:textColor="#ffffff"
+           android:textColor="#000000"
            android:text="注册"
-           android:onClick="click"
-           android:background="@color/colorPrimary"
+           android:background="@drawable/btnw"
            android:layout_width="100dp"
            android:layout_height="50dp" />
 
-   </RelativeLayout>
+   </LinearLayout>
 
 </RelativeLayout>

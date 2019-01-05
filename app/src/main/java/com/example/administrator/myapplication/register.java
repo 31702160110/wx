@@ -18,7 +18,7 @@ import okhttp3.Response;
 
 import static com.example.administrator.myapplication.utils.znHttp.zRegister;
 
-public class register extends AppCompatActivity {
+public class register extends AppCompatActivity implements View.OnClickListener {
     private EditText user;
     private EditText pwd;
     private EditText name;
@@ -27,6 +27,7 @@ public class register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+        findViewById(R.id.adduser).setOnClickListener(this);
         init();
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -43,7 +44,8 @@ public class register extends AppCompatActivity {
     }
 
     //点击事件
-    public void click(View v) {
+    @Override
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.adduser:
                 register();
