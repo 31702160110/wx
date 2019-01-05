@@ -1,4 +1,4 @@
-package com.example.administrator.myapplication.utils;
+package com.example.administrator.myapplication.Bean;
 
 public class entity {
 

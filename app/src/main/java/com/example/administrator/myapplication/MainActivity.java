@@ -11,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.administrator.myapplication.Fragment.ContactFragment;
+import com.example.administrator.myapplication.Fragment.SelfFragment;
+import com.example.administrator.myapplication.Fragment.WeixinFragment;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initListener() {
-        //为四大导航组件添加监听
+        //为三个导航组件添加监听
         weixin.setOnClickListener(this);
         contact.setOnClickListener(this);
         self.setOnClickListener(this);
@@ -121,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         //在主布局中根据id找到ViewPager
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        //实例化所属四个fragment
+        //实例化所属三个fragment
         weixinFragment = new WeixinFragment();
         contactListFragment = new ContactFragment();
         selfFragment = new SelfFragment();

@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.administrator.myapplication.Bean.entity;
 import com.example.administrator.myapplication.utils.Md5;
-import com.example.administrator.myapplication.utils.entity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -107,7 +105,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                                 jiauser = user.user;
                                 jiausername = user.name;
                                 saveInfo();//保存账号信息
-                                Toast.makeText(login.this, "登陆成功", Toast.LENGTH_SHORT).show();
+//                                此处没必要提示，太碍眼了!Toast.makeText(login.this, "登陆成功", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(login.this, MainActivity.class);
                                 intent.putExtra("name", user.name);
                                 intent.putExtra("user", user.user);
