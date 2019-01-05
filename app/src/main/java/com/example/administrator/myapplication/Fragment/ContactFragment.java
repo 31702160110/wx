@@ -1,4 +1,4 @@
-package com.example.administrator.myapplication;
+package com.example.administrator.myapplication.Fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,15 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.administrator.myapplication.utils.entity;
-import com.example.administrator.myapplication.utils.znAdapter;
+import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.Bean.entity;
+import com.example.administrator.myapplication.Adapter.znAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public class ContactFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.userlist, container, false);
+        View view = inflater.inflate(R.layout.contact_fragment, container, false);
         mListView = view.findViewById(R.id.userlist);
         mHandler = new Handler() {
             @Override
@@ -119,15 +118,24 @@ public class ContactFragment extends Fragment {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
+            ViewHolder holder;
             if (view == null) {
-                view = getLayoutInflater().inflate(R.layout.usertext, viewGroup, false);
+                view = getLayoutInflater().inflate(R.layout.contact_item, viewGroup, false);
+                holder = new ViewHolder();
+                holder.mTVName = view.findViewById(R.id.username);
+                holder.mTVUser = view.findViewById(R.id.user);
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolder) view.getTag();
             }
-            TextView name = view.findViewById(R.id.username);
-            TextView user = view.findViewById(R.id.user);
             userjx j = list.get(i);
-            name.setText("name:"+j.name);
-            user.setText("user:"+j.user);
+            holder.mTVName.setText("name:"+j.name);
+            holder.mTVUser.setText("user:"+j.user);
             return view;
+        }
+        class ViewHolder{
+            TextView mTVName;
+            TextView mTVUser;
         }
     }
     class userjx {

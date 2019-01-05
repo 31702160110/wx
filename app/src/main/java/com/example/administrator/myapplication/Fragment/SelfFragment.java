@@ -1,4 +1,4 @@
-package com.example.administrator.myapplication;
+package com.example.administrator.myapplication.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.administrator.myapplication.MainActivity;
+import com.example.administrator.myapplication.R;
 
 public class SelfFragment extends Fragment {
     protected TextView text_user,text_name;

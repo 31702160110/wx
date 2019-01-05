@@ -58,14 +58,15 @@
                 android:background="@drawable/weixin_picture_selector"
                 android:layout_width="30dp"
                 android:layout_height="25dp" />
+
             <TextView
                 android:id="@+id/weixin_txt"
                 android:layout_width="wrap_content"
-                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:text="微信"
-                android:textSize="12sp"
-                android:textColor="@drawable/weixin_text_selector"/>
+                android:gravity="center"
+                android:text="聊天室"
+                android:textColor="@drawable/weixin_text_selector"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
