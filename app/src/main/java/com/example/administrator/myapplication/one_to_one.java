@@ -59,7 +59,8 @@ public class one_to_one extends AppCompatActivity implements View.OnClickListene
                         break;
                     case 2:
                         msgRecyclerView.setAdapter(adapter);
-                       break;
+                        msgRecyclerView.scrollToPosition(msgList.size()+1);
+                        break;
                     default:
                         break;
                 }
@@ -84,6 +85,7 @@ public class one_to_one extends AppCompatActivity implements View.OnClickListene
             case R.id.send:
                 cah();
                 et_input.setText(""); // 清空输入框中的内容
+                msgRecyclerView.scrollToPosition(msgList.size()-1);
                 break;
         }
     }
@@ -139,6 +141,7 @@ public class one_to_one extends AppCompatActivity implements View.OnClickListene
         public void run() {
             while (flg) {
                 Log.v("ppn", "xsruning");
+                Log.v("pp3", String.valueOf(msgList.size()));
                 try {
                     chats();
                     Thread.sleep(10000);
