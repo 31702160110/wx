@@ -51,9 +51,10 @@ public class SelfFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loginout:
-                Log.v("kkk", "jjjjj");
                 cleanInfo();
                 Intent intent = new Intent(getActivity(), login.class);
+                //以下标志将会清除之前所有已经打开的activity
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             default:
