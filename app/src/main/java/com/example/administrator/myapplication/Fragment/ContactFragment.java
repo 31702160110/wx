@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,33 +32,31 @@ import okhttp3.Response;
 
 import static com.example.administrator.myapplication.utils.znHttp.zUserlist;
 
-public class ContactFragment extends Fragment {
+public class ContactFragment extends Fragment implements View.OnClickListener {
     private ListView mListView;
     private List<userjx> list = new ArrayList<>();
     private Handler mHandler;
+    private String jsons;
+    private EditText editText;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.contact_fragment, container, false);
         mListView = view.findViewById(R.id.userlist);
+        editText = view.findViewById(R.id.ss);
+        //点击事件
+        view.findViewById(R.id.sss).setOnClickListener(this);
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {
-                    String s = (String) msg.obj;
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<entity>>() {
-                    }.getType();
-                    List<entity> entities = gson.fromJson(s, listType);
-                    for (entity info : entities) {
-                        list.add(new userjx(info.name, info.user));
-                    }
-                    mListView.setAdapter(new userAdapter());
+                    userlist();
                     mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Toast.makeText(getActivity(), list.get(i).user, Toast.LENGTH_SHORT).show();
+                            String ousername = list.get(i).name;
+                            Toast.makeText(getActivity(), list.get(i).name, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -78,13 +77,51 @@ public class ContactFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final String json = response.body().string();
+                jsons = response.body().string();
                 Message msg = new Message();
                 msg.what = 1;
-                msg.obj = json;
                 mHandler.sendMessage(msg);
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        String ss = editText.getText().toString();
+        if (!ss.equals("")) {
+            list.clear();
+            Gson gson = new Gson();
+            final Type listType = new TypeToken<List<entity>>() {
+            }.getType();
+            String s =jsons;
+            List<entity> entities = gson.fromJson(s, listType);
+            for (entity info : entities) {
+                String array = info.name;
+                if (array.indexOf(ss)!=-1) {
+                    list.add(new userjx(info.name, info.user));
+                } else {
+                    continue;
+                }
+            }
+            mListView.setAdapter(new userAdapter());
+            editText.setText("");
+            editText.setHint("点击搜索显示所有联系人");
+        } else {
+            list.clear();
+            userlist();
+            editText.setHint("搜索联系人......");
+        }
+    }
+
+    public void userlist(){
+        Gson gson = new Gson();
+        final Type listType = new TypeToken<List<entity>>() {
+        }.getType();
+        List<entity> entities = gson.fromJson(jsons, listType);
+        for (entity info : entities) {
+            list.add(new userjx(info.name, info.user));
+        }
+        mListView.setAdapter(new userAdapter());
     }
 
     class userAdapter extends BaseAdapter {

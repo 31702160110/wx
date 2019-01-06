@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.administrator.myapplication">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -27,18 +28,18 @@
         <activity
             android:name=".register"
             android:label="注册"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".login">
+            android:parentActivityName=".login"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="register" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:theme="@style/NoAppTheme">
-
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/NoAppTheme"></activity>
+        <activity android:name=".onebyone"></activity>
     </application>
 
 </manifest>

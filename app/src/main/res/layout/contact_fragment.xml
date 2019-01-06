@@ -3,11 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
+        android:layout_below="@id/ssk"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.79"
-        android:background="@drawable/lcatp" />
+        android:alpha="0.4"
+        android:background="@drawable/qutcat" />
+
+    <LinearLayout
+        android:focusable="true"
+        android:id="@+id/ssk"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_margin="6dp"
+        android:layout_height="50dp">
+
+        <EditText
+            android:id="@+id/ss"
+            android:background="@drawable/btngl"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:hint="搜索联系人......"
+            android:paddingLeft="25dp" />
+        <Button
+            android:id="@+id/sss"
+            android:text="搜索"
+            android:layout_marginLeft="2dp"
+            android:background="@drawable/btngr"
+            android:layout_width="60dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
     <ListView
+        android:layout_below="@id/ssk"
         android:id="@+id/userlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
