@@ -39,7 +39,17 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/NoAppTheme"></activity>
-        <activity android:name=".onebyone"></activity>
+        <activity
+            android:name=".one_to_one"
+            android:theme="@style/AppTheme"
+            android:label="Cat.."
+            android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="one_to_one" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

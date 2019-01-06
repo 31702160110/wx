@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     //shape用于定义形状，有四种形状(矩形rectangle| 椭圆oval | 直线line | 圆形ring)
     android:shape="rectangle">
-    <solid android:color="@color/colorpressed"/>
+    <solid android:color="@color/colorWhite"/>
     <corners
     android:topLeftRadius="0dip"
     android:topRightRadius="50dip"

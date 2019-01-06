@@ -52,16 +52,20 @@ public class WeixinFragment extends Fragment implements View.OnClickListener {
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                if (msg.what == 1) {
-                    msgRecyclerView.setAdapter(adapter);
-                    msgRecyclerView.scrollToPosition(msgList.size() - 1); // 将ListView定位到最后一行
-                    et_input.setText(""); // 清空输入框中的内容
-                } else if (msg.what == 2) {
-                    Toast.makeText(getActivity(), "糟糕!网络好像出问题了", Toast.LENGTH_SHORT).show();
+                switch (msg.what){
+                    case 0:
+                        Toast.makeText(getActivity(), "糟糕!网络好像出问题了", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        msgRecyclerView.setAdapter(adapter);
+                        msgRecyclerView.scrollToPosition(msgList.size() - 1); // 将ListView定位到最后一行
+                        et_input.setText(""); // 清空输入框中的内容
+                        break;
+                    default:
+                        break;
                 }
             }
         };
-
         return view;
     }
 
@@ -79,6 +83,7 @@ public class WeixinFragment extends Fragment implements View.OnClickListener {
         user = qz.getString("user", "");
         name = qz.getString("name", "");
     }
+
     //点击事件
     @Override
     public void onClick(View view) {

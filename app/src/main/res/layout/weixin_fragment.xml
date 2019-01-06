@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/songcat"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/songcat"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,6 +13,7 @@
         android:text="欢迎进入猫猫聊天室"
         android:textColor="#fff"
         android:textSize="18dp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/msg_recycler_view"
         android:layout_width="match_parent"
@@ -20,23 +21,28 @@
         android:layout_weight="1" />
 
     <LinearLayout
-        android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp">
 
         <EditText
-            android:paddingLeft="20dp"
             android:id="@+id/input_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:background="@drawable/btnwl"
             android:hint="请输入..........."
-            android:maxLines="2" />
+            android:maxLines="2"
+            android:paddingLeft="20dp" />
 
         <Button
             android:id="@+id/send"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:background="@drawable/btnwr"
             android:text="发送" />
 
     </LinearLayout>

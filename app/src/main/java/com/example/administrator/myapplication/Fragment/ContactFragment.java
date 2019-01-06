@@ -1,11 +1,14 @@
 package com.example.administrator.myapplication.Fragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.myapplication.Bean.entity;
+import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.one_to_one;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -50,18 +55,19 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                if (msg.what == 1) {
-                    userlist();
-                    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            String ousername = list.get(i).name;
-                            Toast.makeText(getActivity(), list.get(i).name, Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                switch (msg.what) {
+                    case 0:
+                        Toast.makeText(getActivity(),"获取联系人失败", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        userlist();
+                        break;
+                    default:
+                        break;
                 }
             }
         };
+        itemliste();
         handler();
         return view;
     }
@@ -93,11 +99,11 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
             Gson gson = new Gson();
             final Type listType = new TypeToken<List<entity>>() {
             }.getType();
-            String s =jsons;
+            String s = jsons;
             List<entity> entities = gson.fromJson(s, listType);
             for (entity info : entities) {
                 String array = info.name;
-                if (array.indexOf(ss)!=-1) {
+                if (array.indexOf(ss) != -1) {
                     list.add(new userjx(info.name, info.user));
                 } else {
                     continue;
@@ -113,7 +119,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void userlist(){
+    public void userlist() {
         Gson gson = new Gson();
         final Type listType = new TypeToken<List<entity>>() {
         }.getType();
@@ -176,5 +182,19 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
             this.user = user;
         }
     }
+    //listitem的监听事件
+    public void itemliste(){
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String ousername = list.get(i).name;
+//                Toast.makeText(getActivity(), list.get(i).name, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(),one_to_one.class);
+                intent.putExtra("name",ousername);
+                startActivity(intent);
+            }
+        });
+    }
+
 }
 
